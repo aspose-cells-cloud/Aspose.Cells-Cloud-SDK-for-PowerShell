@@ -1,0 +1,3 @@
+# DifSaveOptions
+class DifSaveOptions : SaveOptions {
+}

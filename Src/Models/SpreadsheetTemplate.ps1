@@ -1,0 +1,3 @@
+# SpreadsheetTemplate
+class SpreadsheetTemplate {
+}

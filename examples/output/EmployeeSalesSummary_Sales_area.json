@@ -1,0 +1,42 @@
+[
+ null,
+ {
+  "2023": "Order Number",
+  "Column5": "Product Category",
+  "Column11": "Sales"
+ },
+ {
+  "2023": "SO58915",
+  "Column5": "Clothing",
+  "Column11": 944.196
+ },
+ {
+  "Column5": "Accessories",
+  "Column11": 954.75
+ },
+ {
+  "Column5": "Components",
+  "Column11": 2564.082
+ },
+ {
+  "Column5": "Bikes",
+  "Column11": 23105.466
+ },
+ {
+  "2023": "Subtotal",
+  "Column11": 27568.494
+ },
+ {
+  "2023": "SO59045",
+  "Column5": "Bikes",
+  "Column11": 3589.794
+ },
+ {
+  "2023": "Subtotal",
+  "Column11": 3589.794
+ },
+ {
+  "2023": "Total",
+  "Column11": 31158.288
+ }
+]

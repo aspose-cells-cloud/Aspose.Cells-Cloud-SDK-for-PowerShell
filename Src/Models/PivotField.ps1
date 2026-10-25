@@ -1,0 +1,43 @@
+# PivotField — Represents a field in a PivotTable report.
+class PivotField {
+    # Represent the number of top or bottom items that are automatically shown in the specified PivotTable field.
+    [Nullable[int32]]$AutoShowCount
+    [Nullable[int32]]$AutoShowField
+    [Nullable[int32]]$AutoSortField
+    [Nullable[int32]]$BaseField
+    [Nullable[int32]]$BaseIndex
+    [Nullable[int32]]$BaseItem
+    [string]$BaseItemPosition
+    [Nullable[int32]]$CurrentPageItem
+    [string]$DataDisplayFormat
+    [string]$DisplayName
+    [Nullable[bool]]$DragToColumn
+    [Nullable[bool]]$DragToData
+    [Nullable[bool]]$DragToHide
+    [Nullable[bool]]$DragToPage
+    [Nullable[bool]]$DragToRow
+    [string]$Function
+    [Nullable[bool]]$InsertBlankRow
+    [Nullable[bool]]$IsAscendShow
+    [Nullable[bool]]$IsAscendSort
+    [Nullable[bool]]$IsAutoShow
+    [Nullable[bool]]$IsAutoSort
+    [Nullable[bool]]$IsAutoSubtotals
+    [Nullable[bool]]$IsCalculatedField
+    [Nullable[bool]]$IsIncludeNewItemsInFilter
+    [Nullable[bool]]$IsInsertPageBreaksBetweenItems
+    [Nullable[bool]]$IsMultipleItemSelectionAllowed
+    [Nullable[bool]]$IsRepeatItemLabels
+    [Nullable[int32]]$ItemCount
+    [string[]]$Items
+    [string]$Name
+    [Nullable[int32]]$Number
+    [string]$NumberFormat
+    [string[]]$OriginalItems
+    [PivotItem[]]$PivotItems
+    [Nullable[int32]]$Position
+    [Nullable[bool]]$ShowAllItems
+    [Nullable[bool]]$ShowCompact
+    [Nullable[bool]]$ShowInOutlineForm
+    [Nullable[bool]]$ShowSubtotalAtTop
+}

@@ -1,0 +1,13 @@
+# Generated test reports (run_tests.ps1 emits them here)
+TestReports/
+
+# Editor / OS artifacts
+.vscode/
+*.user
+.DS_Store
+Thumbs.db
+
+# Temp / scratch
+*.tmp
+*.log
+Temp/

@@ -1,0 +1,3 @@
+# TablePositionInfo
+class TablePositionInfo {
+}

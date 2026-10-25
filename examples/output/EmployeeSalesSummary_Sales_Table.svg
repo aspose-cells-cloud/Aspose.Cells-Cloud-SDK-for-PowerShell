@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="263.25pt" height="51pt">
+ <g id="SFixTitle" />
+ <g id="SContent">
+  <g transform="scale(1.33333)">
+   <rect width="100%" height="100%" fill="white" />
+   <g transform="matrix(1,0,0,1,0,0)">
+    <defs>
+     <clipPath id="CLIP0">
+      <path d="M-0.5,-0.5 L264.5,-0.5 L264.5,51.5 L-0.5,51.5 Z " />
+     </clipPath>
+    </defs>
+    <g clip-path="url(#CLIP0)">
+     <g />
+     <g shape-rendering="crispEdges" />
+     <g />
+    </g>
+    <defs>
+     <clipPath id="CLIP1">
+      <path d="M-0.5,-1.125 L264.5,-1.125 L264.5,52.875 L-0.5,52.875 Z " />
+     </clipPath>
+    </defs>
+    <g clip-path="url(#CLIP1)">
+     <g>
+      <g />
+      <path d="M 0,0.375 L 144,0.375" class="p0" fill="none" />
+      <path d="M 0.375,0 L 0.375,12.75" class="p0" fill="none" />
+      <path d="M 144,0.375 L 263.25,0.375" class="p0" fill="none" />
+      <path d="M 144,0 L 144,12.75" class="p0" fill="none" />
+      <path d="M 262.875,0 L 262.875,12.75" class="p0" fill="none" />
+      <path d="M 0,12.75 L 144,12.75" class="p0" fill="none" />
+      <path d="M 0.375,12.75 L 0.375,25.5" class="p0" fill="none" />
+      <path d="M 144,12.75 L 263.25,12.75" class="p0" fill="none" />
+      <path d="M 144,12.75 L 144,25.5" class="p0" fill="none" />
+      <path d="M 262.875,12.75 L 262.875,25.5" class="p0" fill="none" />
+      <path d="M 0,25.5 L 144,25.5" class="p0" fill="none" />
+      <path d="M 0.375,25.5 L 0.375,38.25" class="p0" fill="none" />
+      <path d="M 144,25.5 L 263.25,25.5" class="p0" fill="none" />
+      <path d="M 144,25.5 L 144,38.25" class="p0" fill="none" />
+      <path d="M 262.875,25.5 L 262.875,38.25" class="p0" fill="none" />
+      <path d="M 0,38.25 L 144,38.25" class="p0" fill="none" />
+      <path d="M 0.375,38.25 L 0.375,51" class="p0" fill="none" />
+      <path d="M 144,38.25 L 263.25,38.25" class="p0" fill="none" />
+      <path d="M 144,38.25 L 144,51" class="p0" fill="none" />
+      <path d="M 262.875,38.25 L 262.875,51" class="p0" fill="none" />
+      <path d="M 0,50.625 L 144,50.625" class="p0" fill="none" />
+      <path d="M 144,50.625 L 263.25,50.625" class="p0" fill="none" />
+     </g>
+    </g>
+    <defs>
+     <clipPath id="CLIP2">
+      <path d="M-0.5,-0.5 L264.5,-0.5 L264.5,51.5 L-0.5,51.5 Z " />
+     </clipPath>
+    </defs>
+    <g clip-path="url(#CLIP2)">
+     <g>
+      <defs>
+       <clipPath id="CLIP3">
+        <path d="M0.25,0.25 L143.75,0.25 L143.75,12.5 L0.25,12.5 Z " />
+       </clipPath>
+      </defs>
+      <g clip-path="url(#CLIP3)">
+       <g>
+        <g transform="matrix(1,0,0,1,1,11.75)">
+         <text x="1" y="-2.110664129" class="f0">Accessories</text>
+        </g>
+       </g>
+      </g>
+      <defs>
+       <clipPath id="CLIP4">
+        <path d="M144.25,0.25 L263,0.25 L263,12.5 L144.25,12.5 Z " />
+       </clipPath>
+      </defs>
+      <g clip-path="url(#CLIP4)">
+       <g>
+        <g transform="matrix(1,0,0,1,221.826416016,11.75)">
+         <text x="-1" y="-2.110664129" class="f1">￥</text>
+         <text x="8.960000038" y="-2.110664129" class="f0">9</text>
+         <text x="14.499277115" y="-2.110664129" class="f0">5</text>
+         <text x="20.038555145" y="-2.110664129" class="f0">4</text>
+         <text x="25.577833176" y="-2.110664129" class="f0">.</text>
+         <text x="28.345039368" y="-2.110664129" class="f0">7</text>
+         <text x="33.884315491" y="-2.110664129" class="f0">5</text>
+        </g>
+       </g>
+      </g>
+      <defs>
+       <clipPath id="CLIP5">
+        <path d="M0.25,13 L143.75,13 L143.75,25.25 L0.25,25.25 Z " />
+       </clipPath>
+      </defs>
+      <g clip-path="url(#CLIP5)">
+       <g>
+        <g transform="matrix(1,0,0,1,1,24.5)">
+         <text x="1" y="-2.110664129" class="f0">Bikes</text>
+        </g>
+       </g>
+      </g>
+      <defs>
+       <clipPath id="CLIP6">
+        <path d="M144.25,13 L263,13 L263,25.25 L144.25,25.25 Z " />
+       </clipPath>
+      </defs>
+      <g clip-path="url(#CLIP6)">
+       <g>
+        <g transform="matrix(1,0,0,1,207.980651855,24.5)">
+         <text x="-1" y="-2.110664129" class="f1">￥</text>
+         <text x="8.960000038" y="-2.110664129" class="f0">2</text>
+         <text x="14.499277115" y="-2.110664129" class="f0">6</text>
+         <text x="20.038555145" y="-2.110664129" class="f0">,</text>
+         <text x="22.805763245" y="-2.110664129" class="f0">6</text>
+         <text x="28.345041275" y="-2.110664129" class="f0">9</text>
+         <text x="33.884319305" y="-2.110664129" class="f0">5</text>
+         <text x="39.423595428" y="-2.110664129" class="f0">.</text>
+         <text x="42.190803528" y="-2.110664129" class="f0">2</text>
+         <text x="47.730079651" y="-2.110664129" class="f0">6</text>
+        </g>
+       </g>
+      </g>
+      <defs>
+       <clipPath id="CLIP7">
+        <path d="M0.25,25.75 L143.75,25.75 L143.75,38 L0.25,38 Z " />
+       </clipPath>
+      </defs>
+      <g clip-path="url(#CLIP7)">
+       <g>
+        <g transform="matrix(1,0,0,1,1,37.25)">
+         <text x="1" y="-2.110664129" class="f0">Clothing</text>
+        </g>
+       </g>
+      </g>
+      <defs>
+       <clipPath id="CLIP8">
+        <path d="M144.25,25.75 L263,25.75 L263,38 L144.25,38 Z " />
+       </clipPath>
+      </defs>
+      <g clip-path="url(#CLIP8)">
+       <g>
+        <g transform="matrix(1,0,0,1,221.826416016,37.25)">
+         <text x="-1" y="-2.110664129" class="f1">￥</text>
+         <text x="8.960000038" y="-2.110664129" class="f0">9</text>
+         <text x="14.499277115" y="-2.110664129" class="f0">4</text>
+         <text x="20.038555145" y="-2.110664129" class="f0">4</text>
+         <text x="25.577833176" y="-2.110664129" class="f0">.</text>
+         <text x="28.345039368" y="-2.110664129" class="f0">2</text>
+         <text x="33.884315491" y="-2.110664129" class="f0">0</text>
+        </g>
+       </g>
+      </g>
+      <defs>
+       <clipPath id="CLIP9">
+        <path d="M0.25,38.5 L143.75,38.5 L143.75,50.75 L0.25,50.75 Z " />
+       </clipPath>
+      </defs>
+      <g clip-path="url(#CLIP9)">
+       <g>
+        <g transform="matrix(1,0,0,1,1,50)">
+         <text x="1" y="-2.110664129" class="f0">Components</text>
+        </g>
+       </g>
+      </g>
+      <defs>
+       <clipPath id="CLIP10">
+        <path d="M144.25,38.5 L263,38.5 L263,50.75 L144.25,50.75 Z " />
+       </clipPath>
+      </defs>
+      <g clip-path="url(#CLIP10)">
+       <g>
+        <g transform="matrix(1,0,0,1,213.519927979,50)">
+         <text x="-1" y="-2.110664129" class="f1">￥</text>
+         <text x="8.960000038" y="-2.110664129" class="f0">2</text>
+         <text x="14.499277115" y="-2.110664129" class="f0">,</text>
+         <text x="17.266483307" y="-2.110664129" class="f0">5</text>
+         <text x="22.805761337" y="-2.110664129" class="f0">6</text>
+         <text x="28.345039368" y="-2.110664129" class="f0">4</text>
+         <text x="33.884315491" y="-2.110664129" class="f0">.</text>
+         <text x="36.65152359" y="-2.110664129" class="f0">0</text>
+         <text x="42.190799713" y="-2.110664129" class="f0">8</text>
+        </g>
+       </g>
+      </g>
+     </g>
+    </g>
+    <defs>
+     <clipPath id="CLIP11">
+      <path d="M-0.5,-0.5 L264.5,-0.5 L264.5,51.5 L-0.5,51.5 Z " />
+     </clipPath>
+    </defs>
+    <g clip-path="url(#CLIP11)">
+     <g />
+    </g>
+   </g>
+   <g />
+   <g />
+   <g />
+  </g>
+ </g>
+ <defs />
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+   
+.f0
+{
+font-family:Arial;
+font-size:9.960000038px;
+fill:#000000;
+}
+
+.f1
+{
+font-family:'MS PGothic';
+font-size:9.960000038px;
+fill:#000000;
+}
+
+   
+.p0
+{
+stroke:#000000;
+stroke-width:0.75px;
+stroke-linecap:butt;
+stroke-linejoin:miter;
+}
+
+   ]]></style>
+ </defs>
+</svg>

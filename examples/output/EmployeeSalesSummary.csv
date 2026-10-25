@@ -1,0 +1,40 @@
+2003,,,,,, -,12,Sales Report,,
+Syed Abbas,,,,,,,,,,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2023,,,,,, -,12,Order Summary,,
+
+Order Number,,,,Product Category,,,,,,Sales
+SO58915,,,,Clothing,,,,,,￥944.20
+,,,,Accessories,,,,,,￥954.75
+,,,,Components,,,,,,"￥2,564.08"
+,,,,Bikes,,,,,,"￥23,105.47"
+Subtotal,,,,,,,,,,"￥27,568.49"
+SO59045,,,,Bikes,,,,,,"￥3,589.79"
+Subtotal,,,,,,,,,,"￥3,589.79"
+Total,,,,,,,,,,"￥31,158.29"
+Product Category,Sales
+Accessories,￥954.75
+Bikes,"￥26,695.26"
+Clothing,￥944.20
+Components,"￥2,564.08"

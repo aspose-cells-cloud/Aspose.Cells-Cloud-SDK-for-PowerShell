@@ -1,0 +1,93 @@
+{
+"Sales":[
+ {
+  "2003": "Syed Abbas"
+ },
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ null,
+ {
+  "2003": 2023,
+  " -": " -",
+  "12": 12,
+  "Sales Report": "Order Summary"
+ },
+ null,
+ {
+  "2003": "Order Number",
+  "Column6": "Product Category",
+  "Column12": "Sales"
+ },
+ {
+  "2003": "SO58915",
+  "Column6": "Clothing",
+  "Column12": 944.196
+ },
+ {
+  "Column6": "Accessories",
+  "Column12": 954.75
+ },
+ {
+  "Column6": "Components",
+  "Column12": 2564.082
+ },
+ {
+  "Column6": "Bikes",
+  "Column12": 23105.466
+ },
+ {
+  "2003": "Subtotal",
+  "Column12": 27568.494
+ },
+ {
+  "2003": "SO59045",
+  "Column6": "Bikes",
+  "Column12": 3589.794
+ },
+ {
+  "2003": "Subtotal",
+  "Column12": 3589.794
+ },
+ {
+  "2003": "Total",
+  "Column12": 31158.288
+ }
+],
+"SalesChartData":[
+ {
+  "Product Category": "Accessories",
+  "Sales": 954.75
+ },
+ {
+  "Product Category": "Bikes",
+  "Sales": 26695.26
+ },
+ {
+  "Product Category": "Clothing",
+  "Sales": 944.196
+ },
+ {
+  "Product Category": "Components",
+  "Sales": 2564.082
+ }
+]
+}

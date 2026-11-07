@@ -14,7 +14,7 @@ class SearchAllTextItemsInRemoteSpreadsheetRequest : RequestOption {
         $this.Folder = $folder
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/search/content/all-textitems'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))

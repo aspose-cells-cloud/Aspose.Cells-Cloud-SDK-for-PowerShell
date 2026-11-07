@@ -1,4 +1,4 @@
-# TransposeDataRequest — Switch rows and columns in the spreadsheet.
+# TransposeDataRequest — Transposes data in the specified range, switching rows and columns.
 class TransposeDataRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Worksheet

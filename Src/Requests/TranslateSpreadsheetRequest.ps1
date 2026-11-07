@@ -3,6 +3,9 @@ class TranslateSpreadsheetRequest : RequestOption {
     [string]$Spreadsheet
     [string]$TargetLanguage
 
+    [string]$CustomEndpoint
+    [string]$CustomApiKey
+    [string]$CustomModel
     [string]$Region
     [string]$Password
 
@@ -20,6 +23,9 @@ class TranslateSpreadsheetRequest : RequestOption {
     [hashtable] GetQueryParameters() {
         $q = @{}
         $q['targetLanguage'] = $this.TargetLanguage
+        if (-not [string]::IsNullOrEmpty($this.CustomEndpoint)) { $q['customEndpoint'] = $this.CustomEndpoint }
+        if (-not [string]::IsNullOrEmpty($this.CustomApiKey)) { $q['customApiKey'] = $this.CustomApiKey }
+        if (-not [string]::IsNullOrEmpty($this.CustomModel)) { $q['customModel'] = $this.CustomModel }
         if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
         if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
         return $q

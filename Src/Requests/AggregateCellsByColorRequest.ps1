@@ -16,7 +16,7 @@ class AggregateCellsByColorRequest : RequestOption {
 
     [string] GetMethod() { return 'PUT' }
     [string] GetPath() {
-        return '/v4.0/cells/calculate/aggergate/color'
+        return '/v4.0/cells/calculate/aggregate/color'
     }
     [hashtable] GetQueryParameters() {
         $q = @{}

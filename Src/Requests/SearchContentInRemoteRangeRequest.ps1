@@ -22,7 +22,7 @@ class SearchContentInRemoteRangeRequest : RequestOption {
         $this.SearchText = $searchText
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/content'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))

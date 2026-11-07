@@ -1,4 +1,4 @@
-# UnpivotRangeRequest — Switch rows and columns in the spreadsheet.
+# UnpivotRangeRequest — Unpivots data from the specified range, converting columns to rows.
 class UnpivotRangeRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Worksheet

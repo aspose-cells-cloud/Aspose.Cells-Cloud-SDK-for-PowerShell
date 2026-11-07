@@ -1,4 +1,4 @@
-# UnpivotTableRequest — Switch rows and columns in the spreadsheet.
+# UnpivotTableRequest — Unpivots data from the specified table, converting columns to rows.
 class UnpivotTableRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Worksheet

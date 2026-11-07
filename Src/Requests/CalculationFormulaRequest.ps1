@@ -1,4 +1,4 @@
-# CalculationFormulaRequest
+# CalculationFormulaRequest — Calculates a formula expression and returns the result.
 class CalculationFormulaRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Worksheet

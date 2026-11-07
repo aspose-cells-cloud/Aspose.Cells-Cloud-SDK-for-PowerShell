@@ -1,6 +1,6 @@
 @{
     RootModule           = 'AsposeCellsCloud.psm1'
-    ModuleVersion        = '27.0.0'
+    ModuleVersion        = '26.10.5'
     GUID                 = 'd2e2b5e8-5f6a-4a1b-9c3d-7e8f9a0b1c2d'
     Author               = 'Aspose'
     CompanyName          = 'Aspose'
@@ -22,7 +22,7 @@
             Tags        = @('Aspose', 'Cells', 'Excel', 'XLSX', 'Cloud', 'SDK')
             ProjectUri  = 'https://products.aspose.cloud/cells/'
             LicenseUri  = 'https://github.com/aspose-cells-cloud/aspose-cells-cloud-powershell/blob/master/LICENSE'
-            ReleaseNotes = 'See CHANGELOG.md for 27.0.0: 464 operations across 43 controllers, SDKError-throwing client, configurable retries, reproducible codegen with drift guard.'
+            ReleaseNotes = 'See CHANGELOG.md for 26.10.5: 472 operations across 43 controllers (spec 26.10.5), corrected AggregateCellsByColor route, GET search verbs, SmartMarkerTemplate file inputs, SharedDriveInfo model, binary-response fix, examples/.'
         }
     }
 }

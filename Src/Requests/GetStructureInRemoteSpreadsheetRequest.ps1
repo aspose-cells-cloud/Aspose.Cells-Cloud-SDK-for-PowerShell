@@ -1,4 +1,4 @@
-# GetStructureInRemoteSpreadsheetRequest — Structurally convert the core metadata, worksheets, tables, pivot tables, charts, shapes, and other information of an Excel workbook into a JObject type JSON object, for scenarios such as data export, API responses, and log recording.
+# GetStructureInRemoteSpreadsheetRequest — Extracts the structural information of a remote spreadsheet as a JSON object.
 class GetStructureInRemoteSpreadsheetRequest : RequestOption {
     [string]$Name
 

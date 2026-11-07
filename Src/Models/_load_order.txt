@@ -270,6 +270,7 @@ ShapeOperateParameter
 ShapeResponse
 Shapes
 ShapesResponse
+SharedDriveInfo
 SingleValue
 SingleValueResponse
 SortKey

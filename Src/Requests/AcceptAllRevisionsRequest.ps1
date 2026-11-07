@@ -1,4 +1,4 @@
-# AcceptAllRevisionsRequest
+# AcceptAllRevisionsRequest — Accepts all tracked changes (revisions) in the local spreadsheet.
 class AcceptAllRevisionsRequest : RequestOption {
     [string]$Spreadsheet
 

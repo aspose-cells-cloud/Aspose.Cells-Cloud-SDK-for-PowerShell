@@ -15,7 +15,7 @@ class SearchBrokenLinksInRemoteWorksheetRequest : RequestOption {
         $this.Worksheet = $worksheet
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/worksheets/{worksheet}/search/broken-links'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))

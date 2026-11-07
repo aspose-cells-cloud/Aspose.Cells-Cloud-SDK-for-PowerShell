@@ -1,4 +1,4 @@
-# AcceptAllRevisionsInRemoteSpreadsheetRequest
+# AcceptAllRevisionsInRemoteSpreadsheetRequest — Accepts all tracked changes (revisions) in a remote spreadsheet.
 class AcceptAllRevisionsInRemoteSpreadsheetRequest : RequestOption {
     [string]$Name
 

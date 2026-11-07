@@ -1,4 +1,4 @@
-# GetSpreadsheetStructureRequest — Structurally convert the core metadata, worksheets, tables, pivot tables, charts, shapes, and other information of an Excel workbook into a JObject type JSON object, for scenarios such as data export, API responses, and log recording.
+# GetSpreadsheetStructureRequest — Extracts the structural information of a local spreadsheet as a JSON object.
 class GetSpreadsheetStructureRequest : RequestOption {
     [string]$Spreadsheet
 

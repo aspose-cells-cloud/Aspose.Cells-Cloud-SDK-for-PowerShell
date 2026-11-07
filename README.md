@@ -1,101 +1,166 @@
-# Aspose.Cells Cloud SDK for PowerShell
+![](https://img.shields.io/badge/aspose.cells%20Cloud%20SDK-PowerShell%20v26.10.5-green?style=for-the-badge&logo=powershell)[![Product Page](https://img.shields.io/badge/Product-0288d1?style=for-the-badge&logo=Google-Chrome&logoColor=white)](https://products.aspose.cloud/cells/) [![Documentation](https://img.shields.io/badge/Documentation-388e3c?style=for-the-badge&logo=Hugo&logoColor=white)](https://docs.aspose.cloud/cells/) [![API Ref](https://img.shields.io/badge/Reference-f39c12?style=for-the-badge&logo=html5&logoColor=white)](https://reference.aspose.cloud/cells/) [![Examples](https://img.shields.io/badge/Examples-1565c0?style=for-the-badge&logo=Github&logoColor=white)](examples/README.md) [![Blog](https://img.shields.io/badge/Blog-d32f2f?style=for-the-badge&logo=WordPress&logoColor=white)](https://blog.aspose.cloud/categories/aspose.cells-cloud-product-family/) [![Support](https://img.shields.io/badge/Support-7b1fa2?style=for-the-badge&logo=Discourse&logoColor=white)](https://forum.aspose.cloud/c/cells/7) [![License](https://img.shields.io/badge/License-MIT-4c1?style=for-the-badge&logo=rocket&logoColor=white)](LICENSE)
 
-[![PowerShell](https://img.shields.io/badge/PowerShell-7.0%2B-5391FE.svg)](#requirements)
-[![Version](https://img.shields.io/badge/version-27.0.0-blue.svg)](#)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[Aspose.Cells Cloud SDK for PowerShell](https://products.aspose.cloud/cells/) is a cloud-native REST API that enables PowerShell developers to **create**, **read**, **edit**, **convert**, and **repair** spreadsheet files—including **Excel** (**XLS**, **XLSX**, **XLSB**, **XLSM**), **OpenDocument Spreadsheet (ODS**), **CSV**, **TSV**, **JSON**, **HTML**, **PDF**, and **more—without requiring Microsoft Excel or Office to be installed**.
 
-**Aspose.Cells Cloud SDK for PowerShell** — create, edit, convert, merge, split, protect and process
-Excel / XLSX documents in cloud storage through the
-[Aspose.Cells Cloud REST API](https://products.aspose.cloud/cells/).
+Built on the **Aspose.Cells Cloud Web API**, this MIT-licensed SDK supports advanced spreadsheet operations such as:
 
-This SDK is generated from `aspose.cells.cloud.specification.json` and mirrors the
-[Aspose.Cells Cloud SDK for Go](https://github.com/aspose-cells-cloud/aspose-cells-cloud-go),
-translated to idiomatic PowerShell. It exposes the full API surface — **464 operations across
-43 controllers** and **484 data models** — as native PowerShell `class` types.
+- Cell formatting, formulas, and data validation
+- Pivot tables, charts, hyperlinks, and comments
+- Conditional formatting and smart markers
+- Worksheet merging, splitting, and protection
+- Batch processing and background removal
 
-## Features
+It seamlessly integrates with **AWS**, **Microsoft Azure**, and **Google Cloud**, ensuring **high availability**, **scalability**, **and data integrity**. Ideal for automation scripts, serverless functions, and cloud workflows.
 
-- **Full API coverage** — cells, worksheets, workbooks, charts, pivot tables, ranges, shapes,
-  pictures, hyperlinks, list objects, conditional formatting, conversion, merge, split, protection,
-  and file/storage management.
-- **Native PowerShell classes** — no external runtime dependencies.
-- **Automatic authentication** — OAuth2 client-credentials token acquisition is handled for you.
-- **Go `omitempty` fidelity** — `[Nullable[T]]` value types serialize exactly like the Go SDK's
-  pointer fields (null/empty values are dropped from JSON).
-- **JSON-driven tests** — 46 integration test groups generated from `TestingData/`.
+The full API surface — **472 operations across 43 controllers** and **485 data models** — is exposed as
+native PowerShell `class` types (468 request classes, 449 model classes).
 
-## Requirements
+## Quick Start Guide
 
-- **PowerShell 7.0 or later** (Windows, Linux, macOS).
+To get started with Aspose.Cells Cloud for PowerShell, follow these steps:
 
-> The SDK is written with PowerShell `class` syntax and therefore **does not** support Windows
-> PowerShell 5.1.
+- Create an account at [Aspose for Cloud](https://dashboard.aspose.cloud/#/apps) and obtain your application client id and secret.
+- Install the module (from the PowerShell Gallery after publishing, or from a local repository / source folder), then create a script that uses it.
 
-## Quick Start
+> **Requirements:** PowerShell 7.0 or later (Windows, Linux, macOS). The SDK uses native `class` syntax
+> and therefore does not run on Windows PowerShell 5.1.
 
 ```powershell
-# 1. Load the module. `using module` is required — it is the only way PowerShell exposes
-#    the SDK's classes to your script (Import-Module does NOT export classes).
-using module ./AsposeCellsCloud.psd1
+# `using module` is required — Import-Module does NOT expose PowerShell classes.
+using module AsposeCellsCloud
 
-# 2. Create a client (Client ID / Client Secret from https://dashboard.aspose.cloud/).
-$client = [AsposeCellsCloudClient]::new(
-    'your-client-id',
-    'your-client-secret',
+$env:CellsCloudClientId     = '<your client id>'
+$env:CellsCloudClientSecret = '<your client secret>'
+
+$client  = [AsposeCellsCloudClient]::new(
+    $env:CellsCloudClientId,
+    $env:CellsCloudClientSecret,
     'https://api.aspose.cloud')
 
-# 3. Convert a local XLSX to PDF.
-$request  = [PutConvertWorkbookRequest]::new('C:\data\sample.xlsx', 'pdf')
+$request  = [PutConvertWorkbookRequest]::new('TestData/Book1.xlsx', 'pdf')
 $response = $client.Do($request)
 
-$response.StatusCode   # 200
-$response.ToBytes()    # the PDF as a byte array
+$response.StatusCode                      # 200
+[System.IO.File]::WriteAllBytes("$PWD/Book1.pdf", $response.ToBytes())
 ```
 
-## Installation
+Run the script with PowerShell 7:
 
-The module can be installed from the PowerShell Gallery (after publishing), or used directly from
-source. See [docs/deployment.md](docs/deployment.md) for:
-
-- Publishing to the PowerShell Gallery / a private repository
-- Installing with `Install-Module`
-- Local and offline deployment
-
-## Documentation
-
-| Document | Description |
-|----------|-------------|
-| [docs/usage.md](docs/usage.md) | **How to use** — client setup, requests, responses, worked examples |
-| [docs/development.md](docs/development.md) | **Development manual** — architecture, code generation, adding APIs |
-| [docs/deployment.md](docs/deployment.md) | **How to deploy** — build, package, publish, version |
-| [docs/api_reference.md](docs/api_reference.md) | Public API surface reference |
-| [docs/testing.md](docs/testing.md) | Integration test structure and execution |
-
-## Project Structure
-
+```powershell
+pwsh -File ./convert.ps1
 ```
-cells-cloud-sdk-powershell/
-├── AsposeCellsCloud.psd1          # module manifest
-├── AsposeCellsCloud.psm1          # built module (GENERATED by build_module.ps1)
-├── Src/                           # source of truth (one class per file)
-│   ├── AsposeCellsCloudClient.ps1
-│   ├── Configuration.ps1
-│   ├── RequestOption.ps1
-│   ├── RichResponse.ps1
-│   ├── SDKError.ps1
-│   ├── AsposeJson.ps1
-│   ├── Models/                    # 448 model classes
-│   └── Requests/                  # 460 request classes
-├── IntegrationTests/              # 46 generated Pester test groups
-├── TestingData/                   # JSON test-case configuration
-├── testdata/                      # sample XLSX / CSV files
-├── generate_models.ps1            # model codegen
-├── generate_requests.ps1          # request codegen
-├── generate_tests.ps1             # integration-test codegen
-├── build_module.ps1               # concatenates Src/** into AsposeCellsCloud.psm1
-├── references/                    # generation + quality rules
-└── docs/                          # this documentation set
+
+Required parameters are constructor arguments (validated in the constructor); optional parameters are
+settable properties that map the Go SDK's `With...` options:
+
+```powershell
+$request = [PostClearContentsRequest]::new('Book1.xlsx', 'Sheet1')
+$request.Range       = 'A1:C10'
+$request.Folder      = 'TestData/In'
+$request.StorageName = 'default'
 ```
+
+## Support file format
+
+| **Format**                                                        | **Description**                                                                                                                                                                     | **Load** | **Save** |
+| :---------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :------- |
+| [XLS](https://docs.fileformat.com/spreadsheet/xls/)               | Excel 95/5.0 - 2003 Workbook.                                                                                                                                                       | &radic;  | &radic;  |
+| [XLSX](https://docs.fileformat.com/spreadsheet/xlsx/)             | Office Open XML SpreadsheetML Workbook or template file, with or without macros.                                                                                                    | &radic;  | &radic;  |
+| [XLSB](https://docs.fileformat.com/spreadsheet/xlsb/)             | Excel Binary Workbook.                                                                                                                                                              | &radic;  | &radic;  |
+| [XLSM](https://docs.fileformat.com/spreadsheet/xlsm/)             | Excel Macro-Enabled Workbook.                                                                                                                                                       | &radic;  | &radic;  |
+| [XLT](https://docs.fileformat.com/spreadsheet/xlt/)               | Excel 97 - Excel 2003 Template.                                                                                                                                                     | &radic;  | &radic;  |
+| [XLTX](https://docs.fileformat.com/spreadsheet/xltx/)             | Excel Template.                                                                                                                                                                     | &radic;  | &radic;  |
+| [XLTM](https://docs.fileformat.com/spreadsheet/xltm/)             | Excel Macro-Enabled Template.                                                                                                                                                       | &radic;  | &radic;  |
+| [XLAM](https://docs.fileformat.com/spreadsheet/xlam/)             | An Excel Macro-Enabled Add-In file that's used to add new functions to Excel.                                                                                                       |          | &radic;  |
+| [CSV](https://docs.fileformat.com/spreadsheet/csv/)               | CSV (Comma Separated Value) file.                                                                                                                                                   | &radic;  | &radic;  |
+| [TSV](https://docs.fileformat.com/spreadsheet/tsv/)               | TSV (Tab-separated values) file.                                                                                                                                                    | &radic;  | &radic;  |
+| [TXT](https://docs.fileformat.com/word-processing/txt/)           | Delimited plain text file.                                                                                                                                                          | &radic;  | &radic;  |
+| [HTML](https://docs.fileformat.com/web/html/)                     | HTML format.                                                                                                                                                                        | &radic;  | &radic;  |
+| [MHTML](https://docs.fileformat.com/web/mhtml/)                   | MHTML file.                                                                                                                                                                         | &radic;  | &radic;  |
+| [ODS](https://docs.fileformat.com/spreadsheet/ods/)               | ODS (OpenDocument Spreadsheet).                                                                                                                                                     | &radic;  | &radic;  |
+| [Numbers](https://docs.fileformat.com/spreadsheet/numbers/)       | The document is created by Apple's "Numbers" application which forms part of Apple's iWork office suite, a set of applications which run on the Mac OS X and iOS operating systems. | &radic;  |          |
+| [JSON](https://docs.fileformat.com/web/json/)                     | JavaScript Object Notation                                                                                                                                                          | &radic;  | &radic;  |
+| [DIF](https://docs.fileformat.com/spreadsheet/dif/)               | Data Interchange Format.                                                                                                                                                            |          | &radic;  |
+| [PDF](https://docs.fileformat.com/pdf/)                           | Adobe Portable Document Format.                                                                                                                                                     |          | &radic;  |
+| [XPS](https://docs.fileformat.com/page-description-language/xps/) | XML Paper Specification Format.                                                                                                                                                     |          | &radic;  |
+| [SVG](https://docs.fileformat.com/page-description-language/svg/) | Scalable Vector Graphics Format.                                                                                                                                                    |          | &radic;  |
+| [TIFF](https://docs.fileformat.com/image/tiff/)                   | Tagged Image File Format                                                                                                                                                            |          | &radic;  |
+| [PNG](https://docs.fileformat.com/image/png/)                     | Portable Network Graphics Format                                                                                                                                                    |          | &radic;  |
+| [BMP](https://docs.fileformat.com/image/bmp/)                     | Bitmap Image Format                                                                                                                                                                 |          | &radic;  |
+| [EMF](https://docs.fileformat.com/image/emf/)                     | Enhanced metafile Format                                                                                                                                                            |          | &radic;  |
+| [JPEG](https://docs.fileformat.com/image/jpeg/)                   | JPEG is a type of image format that is saved using the method of lossy compression.                                                                                                 |          | &radic;  |
+| [GIF](https://docs.fileformat.com/image/gif/)                     | Graphical Interchange Format                                                                                                                                                        |          | &radic;  |
+| [MARKDOWN](https://docs.fileformat.com/word-processing/md/)       | Represents a markdown document.                                                                                                                                                     |          | &radic;  |
+| [SXC](https://docs.fileformat.com/spreadsheet/sxc/)               | An XML based format used by OpenOffice and StarOffice                                                                                                                               | &radic;  | &radic;  |
+| [FODS](https://docs.fileformat.com/spreadsheet/fods/)             | This is an Open Document format stored as flat XML.                                                                                                                                 | &radic;  | &radic;  |
+| [DOCX](https://docs.fileformat.com/word-processing/docx/)         | A well-known format for Microsoft Word documents that is a combination of XML and binary files.                                                                                     |          | &radic;  |
+| [PPTX](https://docs.fileformat.com/presentation/pptx/)            | The PPTX format is based on the Microsoft PowerPoint open XML presentation file format.                                                                                             |          | &radic;  |
+| [OTS](https://docs.fileformat.com/spreadsheet/ots/)               | OTS (OpenDocument Spreadsheet).                                                                                                                                                     | &radic;  | &radic;  |
+| [XML](https://docs.fileformat.com/web/xml/)                       | XML file.                                                                                                                                                                           | &radic;  | &radic;  |
+| [HTM](https://docs.fileformat.com/web/htm/)                       | HTM file.                                                                                                                                                                           | &radic;  | &radic;  |
+| [TIF](https://docs.fileformat.com/image/tiff/)                    | Tagged Image File Format                                                                                                                                                            |          | &radic;  |
+| [WMF](https://docs.fileformat.com/image/wmf/)                     | WMF Image Format                                                                                                                                                                    |          | &radic;  |
+| [PCL](https://docs.fileformat.com/page-description-language/pcl/) | Printer Command Language Format                                                                                                                                                     |          | &radic;  |
+| [AZW3](https://docs.fileformat.com/ebook/azw3/)                   | AZ3/KF8 File Format                                                                                                                                                                 |          | &radic;  |
+| [EPUB](https://docs.fileformat.com/ebook/epub/)                   | EPUB File Format                                                                                                                                                                    |          | &radic;  |
+| [DBF](https://docs.fileformat.com/database/dbf/)                  | dBase database file format.                                                                                                                                                         |          | &radic;  |
+| [XHTML](https://docs.fileformat.com/web/xhtml/)                   | XHTML File Format                                                                                                                                                                   |          | &radic;  |
+
+## Developer Reference
+
+- [docs/usage.md](docs/usage.md) — client setup, requests, responses, worked examples
+- [docs/development.md](docs/development.md) — architecture, code generation, adding new APIs
+- [docs/deployment.md](docs/deployment.md) — build, package, publish, versioning
+- [docs/api_reference.md](docs/api_reference.md) — public API surface (468 operations / 41 controllers)
+- [docs/testing.md](docs/testing.md) — unit and integration test structure and execution
+
+### Manipulate Excel and other spreadsheet files in the Cloud
+
+- File Manipulation: Users can upload, download, delete, and manage Excel files stored in the cloud.
+- Formatting: Supports formatting of cells, fonts, colors, and alignment modes in Excel files to cater to users' specific requirements.
+- Data Processing: Powerful functions for data processing including reading, writing, modifying cell data, performing formula calculations, and formatting data.
+- Formula Calculation: Built-in formula engine handles complex formula calculations in Excel and returns accurate results.
+- Chart Manipulation: Users can create, edit, and delete charts from Excel files for data analysis and visualization needs.
+- Table Processing: Offers robust processing capabilities for various form operations such as creation, editing, formatting, and conversion, meeting diverse form processing needs.
+- Data Verification: Includes data verification function to set cell data type, range, uniqueness, ensuring data accuracy and integrity.
+- Batch Processing: Supports batch processing of multiple Excel documents, such as batch format conversion, data extraction, and style application.
+- Import/Export: Facilitates importing data from various sources into spreadsheets and exporting spreadsheet data to other formats.
+- Security Management: Offers a range of security features like data encryption, access control, and permission management to safeguard the security and integrity of spreadsheet data.
+
+## Feature & Enhancements in Version v26.10.5
+
+| **Summary**                                                                                   | **Category** |
+| :-------------------------------------------------------------------------------------------- | :----------- |
+| Added 8 operations (legacy `PUT` search aliases and deprecated aggregate color route).        | New Feature  |
+| Corrected `AggregateCellsByColor` route and changed seven search operations to `GET`.         | Improvement  |
+| `SmartMarkerTemplateRequest` now requires `datafile` and `templatefile` smart-marker inputs.  | Improvement  |
+| `Translate*` requests expose `CustomEndpoint`, `CustomApiKey`, and `CustomModel`.             | Improvement  |
+| Added `SharedDriveInfo` model; regenerated from specification 26.10.5 (472 ops / 485 models). | Improvement  |
+| Fixed binary response bodies being corrupted (XLSX/PDF/PNG downloads now byte-exact).         | Bug Fix      |
+
+## Available SDKs
+
+The Aspose.Cells Cloud SDK is available in multiple popular programming languages, enabling developers to integrate spreadsheet processing capabilities across various development environments.
+
+[![PowerShell](https://img.shields.io/badge/PowerShell-%235391FE?style=for-the-badge&logo=powershell&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-powershell) [![PowerShell Gallery](https://img.shields.io/badge/PSGallery-AsposeCellsCloud-%23FA4616?logo=powershell&style=for-the-badge)](https://www.powershellgallery.com/packages/AsposeCellsCloud)
+
+[![Go](https://img.shields.io/badge/Go-00ADD8.svg?style=for-the-badge&logo=go&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-go) [![Go](https://img.shields.io/badge/Go-asposecellscloud-%2300ADD8?logo=go&style=for-the-badge)](https://pkg.go.dev/github.com/aspose-cells-cloud/aspose-cells-cloud-go/v25)
+
+[![Java](https://img.shields.io/badge/Java-red?logo=openjdk&style=for-the-badge&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-java) [![Java](https://img.shields.io/badge/Maven-Aspose.Cells.Cloud.pom.xml-red?logo=apache-maven&style=for-the-badge)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-java/blob/master/Aspose.Cells.Cloud.pom.xml)
+
+[![.NET](https://img.shields.io/badge/.NET-%23512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-dotnet) [![.NET](https://img.shields.io/badge/NuGet-Aspose.Cells--Cloud-%23512BD4?logo=nuget&style=for-the-badge)](https://www.nuget.org/packages/Aspose.cells-Cloud/#readme-body-tab)
+
+[![Node.js](https://img.shields.io/badge/Node.js-43853D.svg?style=for-the-badge&logo=node.js&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-node) [![Node.js](https://img.shields.io/badge/npm-asposecellscloud-orange?logo=npm&style=for-the-badge)](https://www.npmjs.com/package/asposecellscloud)
+
+[![Perl](https://img.shields.io/badge/Perl-39457E.svg?style=for-the-badge&logo=perl&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-perl) [![Perl](https://img.shields.io/badge/CPAN-AsposeCellsCloud--CellsApi-blue?logo=perl&style=for-the-badge)](https://metacpan.org/dist/AsposeCellsCloud-CellsApi)
+
+[![PHP](https://img.shields.io/badge/PHP-777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-php) [![PHP](https://img.shields.io/badge/Composer-aspose/cells--sdk--php-8892BF?logo=composer&style=for-the-badge)](https://packagist.org/packages/aspose/cells-sdk-php)
+
+[![Python](https://img.shields.io/badge/Python-14354C.svg?style=for-the-badge&logo=python&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-python) [![Python](https://img.shields.io/badge/pip-asposecellscloud-blue?logo=pypi&style=for-the-badge)](https://pypi.org/project/asposecellscloud/)
+
+[![Ruby](https://img.shields.io/badge/Ruby-CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-ruby) [![Ruby](https://img.shields.io/badge/Gem-aspose__cells__cloud-red?logo=ruby&style=for-the-badge)](https://rubygems.org/gems/aspose_cells_cloud)
+
+## [Release history version](CHANGELOG.md)
 
 ## License
 

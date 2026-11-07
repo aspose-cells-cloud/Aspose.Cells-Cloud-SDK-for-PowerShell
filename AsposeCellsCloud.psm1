@@ -3282,6 +3282,12 @@ class ShapesResponse : CellsCloudResponse {
     [Shapes]$Shapes
 }
 
+# SharedDriveInfo
+class SharedDriveInfo {
+    [string]$Id
+    [string]$Name
+}
+
 # SingleValue — Represents single value.
 class SingleValue {
     # Represents value.
@@ -5654,7 +5660,7 @@ class XpsSaveOptions : PaginatedSaveOptions {
     [Nullable[bool]]$EncryptDocumentProperties
 }
 
-# AcceptAllRevisionsInRemoteSpreadsheetRequest
+# AcceptAllRevisionsInRemoteSpreadsheetRequest — Accepts all tracked changes (revisions) in a remote spreadsheet.
 class AcceptAllRevisionsInRemoteSpreadsheetRequest : RequestOption {
     [string]$Name
 
@@ -5696,7 +5702,7 @@ class AcceptAllRevisionsInRemoteSpreadsheetRequest : RequestOption {
     }
 }
 
-# AcceptAllRevisionsRequest
+# AcceptAllRevisionsRequest — Accepts all tracked changes (revisions) in the local spreadsheet.
 class AcceptAllRevisionsRequest : RequestOption {
     [string]$Spreadsheet
 
@@ -5928,8 +5934,8 @@ class AddWorksheetToSpreadsheetRequest : RequestOption {
     }
 }
 
-# AggregateCellsByColorRequest — The Aggregate by Color API provides a convenient way to perform calculations on cells that share the same fill or font color. This API supports a range of aggregate operations, including count, sum, maximum value, minimum value, and average value, enabling you to analyze and summarize data based on color distinctions.
-class AggregateCellsByColorRequest : RequestOption {
+# AggregateCellsByColor_DeprecatedRequest — Deprecated: Use String) instead. This endpoint exists only for backward compatibility with clients that used the misspelled route calculate/aggergate/color. It will be removed in a future major version.
+class AggregateCellsByColor_DeprecatedRequest : RequestOption {
     [string]$Spreadsheet
 
     [string]$Worksheet
@@ -5939,7 +5945,7 @@ class AggregateCellsByColorRequest : RequestOption {
     [string]$Region
     [string]$Password
 
-    AggregateCellsByColorRequest([string]$Spreadsheet) {
+    AggregateCellsByColor_DeprecatedRequest([string]$Spreadsheet) {
         if ([string]::IsNullOrEmpty($Spreadsheet)) { throw [System.ArgumentException]::new('Spreadsheet is required') }
         $this.Spreadsheet = $Spreadsheet
     }
@@ -5968,7 +5974,47 @@ class AggregateCellsByColorRequest : RequestOption {
     }
 }
 
-# CalculationFormulaRequest
+# AggregateCellsByColorRequest — The Aggregate by Color API provides a convenient way to perform calculations on cells that share the same fill or font color. This API supports a range of aggregate operations, including count, sum, maximum value, minimum value, and average value, enabling you to analyze and summarize data based on color distinctions.
+class AggregateCellsByColorRequest : RequestOption {
+    [string]$Spreadsheet
+
+    [string]$Worksheet
+    [string]$Range
+    [string]$Operation
+    [string]$ColorPosition
+    [string]$Region
+    [string]$Password
+
+    AggregateCellsByColorRequest([string]$Spreadsheet) {
+        if ([string]::IsNullOrEmpty($Spreadsheet)) { throw [System.ArgumentException]::new('Spreadsheet is required') }
+        $this.Spreadsheet = $Spreadsheet
+    }
+
+    [string] GetMethod() { return 'PUT' }
+    [string] GetPath() {
+        return '/v4.0/cells/calculate/aggregate/color'
+    }
+    [hashtable] GetQueryParameters() {
+        $q = @{}
+        if (-not [string]::IsNullOrEmpty($this.Worksheet)) { $q['worksheet'] = $this.Worksheet }
+        if (-not [string]::IsNullOrEmpty($this.Range)) { $q['range'] = $this.Range }
+        if (-not [string]::IsNullOrEmpty($this.Operation)) { $q['operation'] = $this.Operation }
+        if (-not [string]::IsNullOrEmpty($this.ColorPosition)) { $q['colorPosition'] = $this.ColorPosition }
+        if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
+        if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
+        return $q
+    }
+    [object] GetJsonBody() {
+        return $null
+    }
+    [hashtable] GetMultipartForm() {
+        $f = @{}
+        $f['@' + [System.IO.Path]::GetFileName($this.Spreadsheet)] = $this.Spreadsheet
+        return $f
+    }
+}
+
+# CalculationFormulaRequest — Calculates a formula expression and returns the result.
 class CalculationFormulaRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Worksheet
@@ -10795,7 +10841,7 @@ class GetMergedCellsInRemotedWorksheetRequest : RequestOption {
     }
 }
 
-# GetMergedCellsInWorksheetRequest — Get all merged cell area form a local spreadsheet worksheet.
+# GetMergedCellsInWorksheetRequest — Get all merged cell areas from a local spreadsheet worksheet.
 class GetMergedCellsInWorksheetRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Worksheet
@@ -11066,7 +11112,7 @@ class GetPublicKeyRequest : RequestOption {
     }
 }
 
-# GetSpreadsheetStructureRequest — Structurally convert the core metadata, worksheets, tables, pivot tables, charts, shapes, and other information of an Excel workbook into a JObject type JSON object, for scenarios such as data export, API responses, and log recording.
+# GetSpreadsheetStructureRequest — Extracts the structural information of a local spreadsheet as a JSON object.
 class GetSpreadsheetStructureRequest : RequestOption {
     [string]$Spreadsheet
 
@@ -11098,7 +11144,7 @@ class GetSpreadsheetStructureRequest : RequestOption {
     }
 }
 
-# GetStructureInRemoteSpreadsheetRequest — Structurally convert the core metadata, worksheets, tables, pivot tables, charts, shapes, and other information of an Excel workbook into a JObject type JSON object, for scenarios such as data export, API responses, and log recording.
+# GetStructureInRemoteSpreadsheetRequest — Extracts the structural information of a remote spreadsheet as a JSON object.
 class GetStructureInRemoteSpreadsheetRequest : RequestOption {
     [string]$Name
 
@@ -22425,7 +22471,7 @@ class RemoveDuplicateSubstringsRequest : RequestOption {
     }
 }
 
-# RemoveSpreadsheetBlankColumnsRequest — Delete all blank rows that do not contain any data or other objects.
+# RemoveSpreadsheetBlankColumnsRequest — Delete all blank columns that do not contain any data or other objects.
 class RemoveSpreadsheetBlankColumnsRequest : RequestOption {
     [string]$Spreadsheet
 
@@ -22884,6 +22930,44 @@ class SaveSpreadsheetAsRequest : RequestOption {
     }
 }
 
+# SearchAllTextItemsInRemoteSpreadsheet_LegacyPutRequest — Deprecated PUT route for String). This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route. It will be removed in a future major version.
+class SearchAllTextItemsInRemoteSpreadsheet_LegacyPutRequest : RequestOption {
+    [string]$Name
+    [string]$Folder
+
+    [string]$StorageName
+    [string]$Region
+    [string]$Password
+
+    SearchAllTextItemsInRemoteSpreadsheet_LegacyPutRequest([string]$name, [string]$folder) {
+        if ([string]::IsNullOrEmpty($name)) { throw [System.ArgumentException]::new('name is required') }
+        if ([string]::IsNullOrEmpty($folder)) { throw [System.ArgumentException]::new('folder is required') }
+        $this.Name = $name
+        $this.Folder = $folder
+    }
+
+    [string] GetMethod() { return 'PUT' }
+    [string] GetPath() {
+        $p = '/v4.0/cells/{name}/search/content/all-textitems'
+        $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
+        return $p
+    }
+    [hashtable] GetQueryParameters() {
+        $q = @{}
+        $q['folder'] = $this.Folder
+        if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
+        if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
+        if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
+        return $q
+    }
+    [object] GetJsonBody() {
+        return $null
+    }
+    [hashtable] GetMultipartForm() {
+        return @{}
+    }
+}
+
 # SearchAllTextItemsInRemoteSpreadsheetRequest — Get all text items in the remote spreadsheet.
 class SearchAllTextItemsInRemoteSpreadsheetRequest : RequestOption {
     [string]$Name
@@ -22900,7 +22984,7 @@ class SearchAllTextItemsInRemoteSpreadsheetRequest : RequestOption {
         $this.Folder = $folder
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/search/content/all-textitems'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
@@ -22909,6 +22993,50 @@ class SearchAllTextItemsInRemoteSpreadsheetRequest : RequestOption {
     [hashtable] GetQueryParameters() {
         $q = @{}
         $q['folder'] = $this.Folder
+        if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
+        if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
+        if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
+        return $q
+    }
+    [object] GetJsonBody() {
+        return $null
+    }
+    [hashtable] GetMultipartForm() {
+        return @{}
+    }
+}
+
+# SearchBrokenLinksInRemoteRange_LegacyPutRequest — Deprecated PUT route for String). This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route. It will be removed in a future major version.
+class SearchBrokenLinksInRemoteRange_LegacyPutRequest : RequestOption {
+    [string]$Name
+    [string]$Worksheet
+    [string]$CellArea
+
+    [string]$Folder
+    [string]$StorageName
+    [string]$Region
+    [string]$Password
+
+    SearchBrokenLinksInRemoteRange_LegacyPutRequest([string]$name, [string]$worksheet, [string]$cellArea) {
+        if ([string]::IsNullOrEmpty($name)) { throw [System.ArgumentException]::new('name is required') }
+        if ([string]::IsNullOrEmpty($worksheet)) { throw [System.ArgumentException]::new('worksheet is required') }
+        if ([string]::IsNullOrEmpty($cellArea)) { throw [System.ArgumentException]::new('cellArea is required') }
+        $this.Name = $name
+        $this.Worksheet = $worksheet
+        $this.CellArea = $cellArea
+    }
+
+    [string] GetMethod() { return 'PUT' }
+    [string] GetPath() {
+        $p = '/v4.0/cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/broken-links'
+        $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
+        $p = $p.Replace('{worksheet}', [Uri]::EscapeDataString([string]$this.Worksheet))
+        $p = $p.Replace('{cellArea}', [Uri]::EscapeDataString([string]$this.CellArea))
+        return $p
+    }
+    [hashtable] GetQueryParameters() {
+        $q = @{}
+        if (-not [string]::IsNullOrEmpty($this.Folder)) { $q['folder'] = $this.Folder }
         if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
         if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
         if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
@@ -22942,7 +23070,7 @@ class SearchBrokenLinksInRemoteRangeRequest : RequestOption {
         $this.CellArea = $cellArea
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/broken-links'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
@@ -22952,6 +23080,46 @@ class SearchBrokenLinksInRemoteRangeRequest : RequestOption {
     }
     [hashtable] GetQueryParameters() {
         $q = @{}
+        if (-not [string]::IsNullOrEmpty($this.Folder)) { $q['folder'] = $this.Folder }
+        if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
+        if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
+        if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
+        return $q
+    }
+    [object] GetJsonBody() {
+        return $null
+    }
+    [hashtable] GetMultipartForm() {
+        return @{}
+    }
+}
+
+# SearchBrokenLinksInRemoteSpreadsheet_LegacyPutRequest — Deprecated PUT route for String). This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route. It will be removed in a future major version.
+class SearchBrokenLinksInRemoteSpreadsheet_LegacyPutRequest : RequestOption {
+    [string]$Name
+
+    [string]$Worksheet
+    [string]$CellArea
+    [string]$Folder
+    [string]$StorageName
+    [string]$Region
+    [string]$Password
+
+    SearchBrokenLinksInRemoteSpreadsheet_LegacyPutRequest([string]$name) {
+        if ([string]::IsNullOrEmpty($name)) { throw [System.ArgumentException]::new('name is required') }
+        $this.Name = $name
+    }
+
+    [string] GetMethod() { return 'PUT' }
+    [string] GetPath() {
+        $p = '/v4.0/cells/{name}/search/broken-links'
+        $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
+        return $p
+    }
+    [hashtable] GetQueryParameters() {
+        $q = @{}
+        if (-not [string]::IsNullOrEmpty($this.Worksheet)) { $q['worksheet'] = $this.Worksheet }
+        if (-not [string]::IsNullOrEmpty($this.CellArea)) { $q['cellArea'] = $this.CellArea }
         if (-not [string]::IsNullOrEmpty($this.Folder)) { $q['folder'] = $this.Folder }
         if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
         if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
@@ -22982,7 +23150,7 @@ class SearchBrokenLinksInRemoteSpreadsheetRequest : RequestOption {
         $this.Name = $name
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/search/broken-links'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
@@ -22992,6 +23160,46 @@ class SearchBrokenLinksInRemoteSpreadsheetRequest : RequestOption {
         $q = @{}
         if (-not [string]::IsNullOrEmpty($this.Worksheet)) { $q['worksheet'] = $this.Worksheet }
         if (-not [string]::IsNullOrEmpty($this.CellArea)) { $q['cellArea'] = $this.CellArea }
+        if (-not [string]::IsNullOrEmpty($this.Folder)) { $q['folder'] = $this.Folder }
+        if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
+        if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
+        if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
+        return $q
+    }
+    [object] GetJsonBody() {
+        return $null
+    }
+    [hashtable] GetMultipartForm() {
+        return @{}
+    }
+}
+
+# SearchBrokenLinksInRemoteWorksheet_LegacyPutRequest — Deprecated PUT route for String). This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route. It will be removed in a future major version.
+class SearchBrokenLinksInRemoteWorksheet_LegacyPutRequest : RequestOption {
+    [string]$Name
+    [string]$Worksheet
+
+    [string]$Folder
+    [string]$StorageName
+    [string]$Region
+    [string]$Password
+
+    SearchBrokenLinksInRemoteWorksheet_LegacyPutRequest([string]$name, [string]$worksheet) {
+        if ([string]::IsNullOrEmpty($name)) { throw [System.ArgumentException]::new('name is required') }
+        if ([string]::IsNullOrEmpty($worksheet)) { throw [System.ArgumentException]::new('worksheet is required') }
+        $this.Name = $name
+        $this.Worksheet = $worksheet
+    }
+
+    [string] GetMethod() { return 'PUT' }
+    [string] GetPath() {
+        $p = '/v4.0/cells/{name}/worksheets/{worksheet}/search/broken-links'
+        $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
+        $p = $p.Replace('{worksheet}', [Uri]::EscapeDataString([string]$this.Worksheet))
+        return $p
+    }
+    [hashtable] GetQueryParameters() {
+        $q = @{}
         if (-not [string]::IsNullOrEmpty($this.Folder)) { $q['folder'] = $this.Folder }
         if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
         if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
@@ -23023,7 +23231,7 @@ class SearchBrokenLinksInRemoteWorksheetRequest : RequestOption {
         $this.Worksheet = $worksheet
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/worksheets/{worksheet}/search/broken-links'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
@@ -23032,6 +23240,56 @@ class SearchBrokenLinksInRemoteWorksheetRequest : RequestOption {
     }
     [hashtable] GetQueryParameters() {
         $q = @{}
+        if (-not [string]::IsNullOrEmpty($this.Folder)) { $q['folder'] = $this.Folder }
+        if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
+        if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
+        if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
+        return $q
+    }
+    [object] GetJsonBody() {
+        return $null
+    }
+    [hashtable] GetMultipartForm() {
+        return @{}
+    }
+}
+
+# SearchContentInRemoteRange_LegacyPutRequest — Deprecated PUT route for String). This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route. It will be removed in a future major version.
+class SearchContentInRemoteRange_LegacyPutRequest : RequestOption {
+    [string]$Name
+    [string]$Worksheet
+    [string]$CellArea
+    [string]$SearchText
+
+    [Nullable[bool]]$IgnoringCase
+    [string]$Folder
+    [string]$StorageName
+    [string]$Region
+    [string]$Password
+
+    SearchContentInRemoteRange_LegacyPutRequest([string]$name, [string]$worksheet, [string]$cellArea, [string]$searchText) {
+        if ([string]::IsNullOrEmpty($name)) { throw [System.ArgumentException]::new('name is required') }
+        if ([string]::IsNullOrEmpty($worksheet)) { throw [System.ArgumentException]::new('worksheet is required') }
+        if ([string]::IsNullOrEmpty($cellArea)) { throw [System.ArgumentException]::new('cellArea is required') }
+        if ([string]::IsNullOrEmpty($searchText)) { throw [System.ArgumentException]::new('searchText is required') }
+        $this.Name = $name
+        $this.Worksheet = $worksheet
+        $this.CellArea = $cellArea
+        $this.SearchText = $searchText
+    }
+
+    [string] GetMethod() { return 'PUT' }
+    [string] GetPath() {
+        $p = '/v4.0/cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/content'
+        $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
+        $p = $p.Replace('{worksheet}', [Uri]::EscapeDataString([string]$this.Worksheet))
+        $p = $p.Replace('{cellArea}', [Uri]::EscapeDataString([string]$this.CellArea))
+        return $p
+    }
+    [hashtable] GetQueryParameters() {
+        $q = @{}
+        $q['searchText'] = $this.SearchText
+        if ($null -ne $this.IgnoringCase) { $q['ignoringCase'] = $this.IgnoringCase }
         if (-not [string]::IsNullOrEmpty($this.Folder)) { $q['folder'] = $this.Folder }
         if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
         if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
@@ -23070,12 +23328,54 @@ class SearchContentInRemoteRangeRequest : RequestOption {
         $this.SearchText = $searchText
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/content'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
         $p = $p.Replace('{worksheet}', [Uri]::EscapeDataString([string]$this.Worksheet))
         $p = $p.Replace('{cellArea}', [Uri]::EscapeDataString([string]$this.CellArea))
+        return $p
+    }
+    [hashtable] GetQueryParameters() {
+        $q = @{}
+        $q['searchText'] = $this.SearchText
+        if ($null -ne $this.IgnoringCase) { $q['ignoringCase'] = $this.IgnoringCase }
+        if (-not [string]::IsNullOrEmpty($this.Folder)) { $q['folder'] = $this.Folder }
+        if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
+        if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
+        if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
+        return $q
+    }
+    [object] GetJsonBody() {
+        return $null
+    }
+    [hashtable] GetMultipartForm() {
+        return @{}
+    }
+}
+
+# SearchContentInRemoteSpreadsheet_LegacyPutRequest — Deprecated PUT route for String). This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route. It will be removed in a future major version.
+class SearchContentInRemoteSpreadsheet_LegacyPutRequest : RequestOption {
+    [string]$Name
+    [string]$SearchText
+
+    [Nullable[bool]]$IgnoringCase
+    [string]$Folder
+    [string]$StorageName
+    [string]$Region
+    [string]$Password
+
+    SearchContentInRemoteSpreadsheet_LegacyPutRequest([string]$name, [string]$searchText) {
+        if ([string]::IsNullOrEmpty($name)) { throw [System.ArgumentException]::new('name is required') }
+        if ([string]::IsNullOrEmpty($searchText)) { throw [System.ArgumentException]::new('searchText is required') }
+        $this.Name = $name
+        $this.SearchText = $searchText
+    }
+
+    [string] GetMethod() { return 'PUT' }
+    [string] GetPath() {
+        $p = '/v4.0/cells/{name}/search/content'
+        $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
         return $p
     }
     [hashtable] GetQueryParameters() {
@@ -23114,10 +23414,56 @@ class SearchContentInRemoteSpreadsheetRequest : RequestOption {
         $this.SearchText = $searchText
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/search/content'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
+        return $p
+    }
+    [hashtable] GetQueryParameters() {
+        $q = @{}
+        $q['searchText'] = $this.SearchText
+        if ($null -ne $this.IgnoringCase) { $q['ignoringCase'] = $this.IgnoringCase }
+        if (-not [string]::IsNullOrEmpty($this.Folder)) { $q['folder'] = $this.Folder }
+        if (-not [string]::IsNullOrEmpty($this.StorageName)) { $q['storageName'] = $this.StorageName }
+        if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
+        if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
+        return $q
+    }
+    [object] GetJsonBody() {
+        return $null
+    }
+    [hashtable] GetMultipartForm() {
+        return @{}
+    }
+}
+
+# SearchContentInRemoteWorksheet_LegacyPutRequest — Deprecated PUT route for String). This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route. It will be removed in a future major version.
+class SearchContentInRemoteWorksheet_LegacyPutRequest : RequestOption {
+    [string]$Name
+    [string]$Worksheet
+    [string]$SearchText
+
+    [Nullable[bool]]$IgnoringCase
+    [string]$Folder
+    [string]$StorageName
+    [string]$Region
+    [string]$Password
+
+    SearchContentInRemoteWorksheet_LegacyPutRequest([string]$name, [string]$worksheet, [string]$searchText) {
+        if ([string]::IsNullOrEmpty($name)) { throw [System.ArgumentException]::new('name is required') }
+        if ([string]::IsNullOrEmpty($worksheet)) { throw [System.ArgumentException]::new('worksheet is required') }
+        if ([string]::IsNullOrEmpty($searchText)) { throw [System.ArgumentException]::new('searchText is required') }
+        $this.Name = $name
+        $this.Worksheet = $worksheet
+        $this.SearchText = $searchText
+    }
+
+    [string] GetMethod() { return 'PUT' }
+    [string] GetPath() {
+        $p = '/v4.0/cells/{name}/worksheets/{worksheet}/search/content'
+        $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
+        $p = $p.Replace('{worksheet}', [Uri]::EscapeDataString([string]$this.Worksheet))
         return $p
     }
     [hashtable] GetQueryParameters() {
@@ -23159,7 +23505,7 @@ class SearchContentInRemoteWorksheetRequest : RequestOption {
         $this.SearchText = $searchText
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/worksheets/{worksheet}/search/content'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))
@@ -23294,11 +23640,20 @@ class SearchSpreadsheetContentRequest : RequestOption {
     }
 }
 
-# SmartMarkerTemplateRequest
+# SmartMarkerTemplateRequest — Generates reports using Smart Marker template technology with JSON data.
 class SmartMarkerTemplateRequest : RequestOption {
+    [string]$Datafile
+    [string]$Templatefile
 
     [string]$Region
     [string]$Password
+
+    SmartMarkerTemplateRequest([string]$datafile, [string]$templatefile) {
+        if ([string]::IsNullOrEmpty($datafile)) { throw [System.ArgumentException]::new('datafile is required') }
+        if ([string]::IsNullOrEmpty($templatefile)) { throw [System.ArgumentException]::new('templatefile is required') }
+        $this.Datafile = $datafile
+        $this.Templatefile = $templatefile
+    }
 
     [string] GetMethod() { return 'PUT' }
     [string] GetPath() {
@@ -23314,7 +23669,10 @@ class SmartMarkerTemplateRequest : RequestOption {
         return $null
     }
     [hashtable] GetMultipartForm() {
-        return @{}
+        $f = @{}
+        $f['@' + [System.IO.Path]::GetFileName($this.Datafile)] = $this.Datafile
+        $f['@' + [System.IO.Path]::GetFileName($this.Templatefile)] = $this.Templatefile
+        return $f
     }
 }
 
@@ -23524,7 +23882,7 @@ class SplitTextRequest : RequestOption {
     }
 }
 
-# SpreadsheetDigitalsignatureRequest
+# SpreadsheetDigitalsignatureRequest — Adds digital signatures to Excel spreadsheets using X.509 certificates (.pfx files) for document authentication and integrity verification.
 class SpreadsheetDigitalsignatureRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Password
@@ -23678,6 +24036,9 @@ class TranslateSpreadsheetRequest : RequestOption {
     [string]$Spreadsheet
     [string]$TargetLanguage
 
+    [string]$CustomEndpoint
+    [string]$CustomApiKey
+    [string]$CustomModel
     [string]$Region
     [string]$Password
 
@@ -23695,6 +24056,9 @@ class TranslateSpreadsheetRequest : RequestOption {
     [hashtable] GetQueryParameters() {
         $q = @{}
         $q['targetLanguage'] = $this.TargetLanguage
+        if (-not [string]::IsNullOrEmpty($this.CustomEndpoint)) { $q['customEndpoint'] = $this.CustomEndpoint }
+        if (-not [string]::IsNullOrEmpty($this.CustomApiKey)) { $q['customApiKey'] = $this.CustomApiKey }
+        if (-not [string]::IsNullOrEmpty($this.CustomModel)) { $q['customModel'] = $this.CustomModel }
         if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
         if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
         return $q
@@ -23714,6 +24078,9 @@ class TranslateTextFileRequest : RequestOption {
     [string]$Spreadsheet
     [string]$TargetLanguage
 
+    [string]$CustomEndpoint
+    [string]$CustomApiKey
+    [string]$CustomModel
     [string]$Region
     [string]$Password
 
@@ -23731,6 +24098,9 @@ class TranslateTextFileRequest : RequestOption {
     [hashtable] GetQueryParameters() {
         $q = @{}
         $q['targetLanguage'] = $this.TargetLanguage
+        if (-not [string]::IsNullOrEmpty($this.CustomEndpoint)) { $q['customEndpoint'] = $this.CustomEndpoint }
+        if (-not [string]::IsNullOrEmpty($this.CustomApiKey)) { $q['customApiKey'] = $this.CustomApiKey }
+        if (-not [string]::IsNullOrEmpty($this.CustomModel)) { $q['customModel'] = $this.CustomModel }
         if (-not [string]::IsNullOrEmpty($this.Region)) { $q['region'] = $this.Region }
         if (-not [string]::IsNullOrEmpty($this.Password)) { $q['password'] = $this.Password }
         return $q
@@ -23745,7 +24115,7 @@ class TranslateTextFileRequest : RequestOption {
     }
 }
 
-# TransposeDataRequest — Switch rows and columns in the spreadsheet.
+# TransposeDataRequest — Transposes data in the specified range, switching rows and columns.
 class TransposeDataRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Worksheet
@@ -23901,7 +24271,7 @@ class TrimCharacterRequest : RequestOption {
     }
 }
 
-# UnpivotRangeRequest — Switch rows and columns in the spreadsheet.
+# UnpivotRangeRequest — Unpivots data from the specified range, converting columns to rows.
 class UnpivotRangeRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Worksheet
@@ -23947,7 +24317,7 @@ class UnpivotRangeRequest : RequestOption {
     }
 }
 
-# UnpivotTableRequest — Switch rows and columns in the spreadsheet.
+# UnpivotTableRequest — Unpivots data from the specified table, converting columns to rows.
 class UnpivotTableRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Worksheet

@@ -149,9 +149,18 @@ class AsposeCellsCloudClient {
                 $headerTable[$key] = $resp.Headers[$key]
             }
 
+            # Invoke-WebRequest sets Content to [byte[]] for binary responses (XLSX, PDF,
+            # PNG, ZIP, ...) and to [string] for text responses. Casting a byte[] to
+            # [string] joins each element's decimal value ("80 75 3 4 ..."), which silently
+            # corrupted every downloaded file — pass the bytes through unchanged.
             $bodyBytes = $null
             if ($null -ne $resp.Content) {
-                $bodyBytes = [System.Text.Encoding]::UTF8.GetBytes([string]$resp.Content)
+                if ($resp.Content -is [byte[]]) {
+                    $bodyBytes = $resp.Content
+                }
+                else {
+                    $bodyBytes = [System.Text.Encoding]::UTF8.GetBytes([string]$resp.Content)
+                }
             }
 
             # Non-2xx after retries are exhausted: throw, carrying the status and body.

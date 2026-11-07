@@ -18,7 +18,7 @@ class SearchBrokenLinksInRemoteRangeRequest : RequestOption {
         $this.CellArea = $cellArea
     }
 
-    [string] GetMethod() { return 'PUT' }
+    [string] GetMethod() { return 'GET' }
     [string] GetPath() {
         $p = '/v4.0/cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/broken-links'
         $p = $p.Replace('{name}', [Uri]::EscapeDataString([string]$this.Name))

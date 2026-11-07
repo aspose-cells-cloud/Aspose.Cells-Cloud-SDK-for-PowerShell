@@ -1,4 +1,4 @@
-# SpreadsheetDigitalsignatureRequest
+# SpreadsheetDigitalsignatureRequest — Adds digital signatures to Excel spreadsheets using X.509 certificates (.pfx files) for document authentication and integrity verification.
 class SpreadsheetDigitalsignatureRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Password

@@ -1,4 +1,4 @@
-# RemoveSpreadsheetBlankColumnsRequest — Delete all blank rows that do not contain any data or other objects.
+# RemoveSpreadsheetBlankColumnsRequest — Delete all blank columns that do not contain any data or other objects.
 class RemoveSpreadsheetBlankColumnsRequest : RequestOption {
     [string]$Spreadsheet
 

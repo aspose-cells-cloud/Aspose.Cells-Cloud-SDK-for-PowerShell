@@ -1,4 +1,4 @@
-# GetMergedCellsInWorksheetRequest — Get all merged cell area form a local spreadsheet worksheet.
+# GetMergedCellsInWorksheetRequest — Get all merged cell areas from a local spreadsheet worksheet.
 class GetMergedCellsInWorksheetRequest : RequestOption {
     [string]$Spreadsheet
     [string]$Worksheet

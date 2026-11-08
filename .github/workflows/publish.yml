@@ -41,7 +41,6 @@ jobs:
     env:
       CellsCloudClientId: ${{ secrets.CELLS_CLOUD_CLIENT_ID }}
       CellsCloudClientSecret: ${{ secrets.CELLS_CLOUD_CLIENT_SECRET }}
-      CellsCloudApiBaseUrl: ${{ secrets.CELLS_CLOUD_API_BASE_URL }}
       PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
       TARGET_REPOSITORY: ${{ github.event_name == 'workflow_dispatch' && inputs.repository || 'PSGallery' }}
 

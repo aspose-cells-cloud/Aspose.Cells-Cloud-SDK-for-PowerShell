@@ -1,0 +1,99 @@
+name: Publish
+
+# Required repository secrets:
+#   CELLS_CLOUD_CLIENT_ID, CELLS_CLOUD_CLIENT_SECRET  — examples run against the live API
+#   CELLS_CLOUD_API_BASE_URL (optional)               — defaults to https://api.aspose.cloud
+#   PSGALLERY_API_KEY                                 — PowerShellGet / NuGet API key
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'PowerShell repository to publish to'
+        required: true
+        default: 'PSGallery'
+        type: string
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Build, test, package, publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    env:
+      CellsCloudClientId: ${{ secrets.CELLS_CLOUD_CLIENT_ID }}
+      CellsCloudClientSecret: ${{ secrets.CELLS_CLOUD_CLIENT_SECRET }}
+      CellsCloudApiBaseUrl: ${{ secrets.CELLS_CLOUD_API_BASE_URL }}
+      PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+      TARGET_REPOSITORY: ${{ github.event_name == 'workflow_dispatch' && inputs.repository || 'PSGallery' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Pester and NuGet provider
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          Install-Module Pester -RequiredVersion 5.9.1 -Scope CurrentUser -Force -SkipPublisherCheck
+          Install-PackageProvider -Name NuGet -Force -Scope CurrentUser | Out-Null
+
+      # 1. Compile check: rebuild the single-file module from Src/** and syntax-check it.
+      - name: Build and validate module
+        shell: pwsh
+        run: |
+          ./build_module.ps1
+
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile(
+              'AsposeCellsCloud.psm1', [ref]$null, [ref]$errors) | Out-Null
+          if ($errors.Count -gt 0) {
+              $errors | ForEach-Object { $_.Message }
+              throw 'AsposeCellsCloud.psm1 has syntax errors.'
+          }
+
+          $manifest = Test-ModuleManifest -Path ./AsposeCellsCloud.psd1
+          "Module OK: $($manifest.Name) $($manifest.Version)"
+
+      # 2. Run every sample under examples/ against the live API; any failure stops the release.
+      - name: Run examples
+        shell: pwsh
+        run: |
+          if ([string]::IsNullOrEmpty($env:CellsCloudClientId) -or
+              [string]::IsNullOrEmpty($env:CellsCloudClientSecret)) {
+              throw 'CellsCloudClientId/CellsCloudClientSecret secrets are not configured.'
+          }
+          ./examples/run_examples.ps1
+
+      # 3. Guard: a tag push must match the manifest version.
+      - name: Check tag matches module version
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: pwsh
+        run: |
+          $version = (Test-ModuleManifest -Path ./AsposeCellsCloud.psd1).Version.ToString()
+          if ($env:GITHUB_REF_NAME -ne "v$version") {
+              throw "Tag '$env:GITHUB_REF_NAME' does not match manifest ModuleVersion '$version'."
+          }
+          "Tag matches module version $version"
+
+      # # 4. Package and publish. publish.ps1 rebuilds, re-validates the manifest, stages only
+      # #    psd1 + psm1, refuses to overwrite an existing version, then verifies the result.
+      # - name: Package and publish
+      #   shell: pwsh
+      #   run: |
+      #     if ([string]::IsNullOrEmpty($env:PSGALLERY_API_KEY)) {
+      #         throw 'PSGALLERY_API_KEY secret is not configured.'
+      #     }
+      #     ./publish.ps1 -SkipUnitTests -Publish `
+      #         -Repository $env:TARGET_REPOSITORY `
+      #         -NuGetApiKey $env:PSGALLERY_API_KEY

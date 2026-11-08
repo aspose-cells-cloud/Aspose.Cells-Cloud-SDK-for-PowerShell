@@ -1,5 +1,13 @@
 name: Publish
 
+# Build → compile check → run examples → package → publish to PowerShellGet.
+#
+# Manual run (workflow_dispatch): publish the current main HEAD to the chosen repository.
+# Tag run (v*): publishes the tagged commit; the tag must match the manifest ModuleVersion.
+#
+# Publishing uses Microsoft.PowerShell.PSResourceGet (Publish-PSResource), which ships with
+# PowerShell 7.4+ on the runner and does not need the NuGet package provider.
+#
 # Required repository secrets:
 #   CELLS_CLOUD_CLIENT_ID, CELLS_CLOUD_CLIENT_SECRET  — examples run against the live API
 #   CELLS_CLOUD_API_BASE_URL (optional)               — defaults to https://api.aspose.cloud
@@ -9,13 +17,13 @@ on:
   workflow_dispatch:
     inputs:
       repository:
-        description: 'PowerShell repository to publish to'
+        description: "PowerShell repository to publish to"
         required: true
-        default: 'PSGallery'
+        default: "PSGallery"
         type: string
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 permissions:
   contents: read
@@ -40,13 +48,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install Pester and NuGet provider
-        shell: pwsh
-        run: |
-          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-          Install-Module Pester -RequiredVersion 5.9.1 -Scope CurrentUser -Force -SkipPublisherCheck
-          Install-PackageProvider -Name NuGet -Force -Scope CurrentUser | Out-Null
 
       # 1. Compile check: rebuild the single-file module from Src/** and syntax-check it.
       - name: Build and validate module
@@ -86,14 +87,50 @@ jobs:
           }
           "Tag matches module version $version"
 
-      # # 4. Package and publish. publish.ps1 rebuilds, re-validates the manifest, stages only
-      # #    psd1 + psm1, refuses to overwrite an existing version, then verifies the result.
-      # - name: Package and publish
-      #   shell: pwsh
-      #   run: |
-      #     if ([string]::IsNullOrEmpty($env:PSGALLERY_API_KEY)) {
-      #         throw 'PSGALLERY_API_KEY secret is not configured.'
-      #     }
-      #     ./publish.ps1 -SkipUnitTests -Publish `
-      #         -Repository $env:TARGET_REPOSITORY `
-      #         -NuGetApiKey $env:PSGALLERY_API_KEY
+      # 4. Package and publish (inline equivalent of publish.ps1). Rebuilds, re-validates the
+      #    manifest, refuses to overwrite an existing version, stages only psd1 + psm1, publishes
+      #    with Publish-PSResource, then verifies the result with Find-PSResource.
+      - name: Package and publish
+        shell: pwsh
+        run: |
+          $repo   = $env:TARGET_REPOSITORY
+          $apiKey = $env:PSGALLERY_API_KEY
+          if ($repo -eq 'PSGallery' -and [string]::IsNullOrEmpty($apiKey)) {
+              throw 'PSGALLERY_API_KEY secret is not configured.'
+          }
+
+          Import-Module Microsoft.PowerShell.PSResourceGet -MinimumVersion 1.0.0
+
+          ./build_module.ps1
+          $manifest = Test-ModuleManifest -Path ./AsposeCellsCloud.psd1
+          $name     = $manifest.Name
+          $version  = $manifest.Version.ToString()
+          "Packaging $name $version for $repo"
+
+          # Refuse to overwrite a version that already exists in the target repository.
+          $existing = $null
+          try {
+              $existing = Find-PSResource -Name $name -Repository $repo -Version $version -ErrorAction Stop
+          } catch {
+              $existing = $null
+          }
+          if ($existing) {
+              throw "$name $version already exists in $repo; bump ModuleVersion before publishing."
+          }
+
+          # Stage only the manifest and the built module bundle.
+          $stage = Join-Path ([System.IO.Path]::GetTempPath()) "pspublish/$name"
+          if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
+          New-Item -ItemType Directory -Path $stage -Force | Out-Null
+          Copy-Item ./AsposeCellsCloud.psd1, ./AsposeCellsCloud.psm1 $stage
+
+          $publishArgs = @{ Path = $stage; Repository = $repo }
+          if (-not [string]::IsNullOrEmpty($apiKey)) { $publishArgs['ApiKey'] = $apiKey }
+          Publish-PSResource @publishArgs
+
+          # Verify the published version is visible in the repository.
+          $published = Find-PSResource -Name $name -Repository $repo -Version $version -ErrorAction Stop
+          if (-not $published) {
+              throw "Publish verification failed: $name $version not found in $repo."
+          }
+          "Published $name $version to $repo"

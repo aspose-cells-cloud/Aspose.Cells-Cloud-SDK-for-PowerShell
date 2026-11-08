@@ -164,5 +164,4 @@ The Aspose.Cells Cloud SDK is available in multiple popular programming language
 
 ## License
 
-Copyright (c) 2026 Aspose.Cells Cloud. All rights reserved. Distributed under the MIT license —
-see the [LICENSE](LICENSE) file.
+Copyright (c) 2026 Aspose Pty Ltd. All rights reserved. Distributed under the MIT license — see the [LICENSE](LICENSE) file.
